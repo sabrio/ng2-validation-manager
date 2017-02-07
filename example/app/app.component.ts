@@ -11,14 +11,8 @@ import {ValidationManager, VALIDATION_MESSAGES} from "../../src/validation-manag
 export class AppComponent implements OnInit{
 
   form;
-  validatiors = [];
-  availableValidators = [];
 
-  customForm;
   constructor() {
-    // Do something with sampleService
-    for(let rule in VALIDATION_MESSAGES)
-      this.availableValidators.push({name: rule, 'message': VALIDATION_MESSAGES[rule]});
   }
 
   ngOnInit() {
