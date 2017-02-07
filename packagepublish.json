@@ -1,0 +1,33 @@
+{
+  "name": "ng2-validation-manager",
+  "version": "0.1.0",
+  "description": "Your library description.",
+  "main": "ng2-validation-manager",
+  "typings": "ng2-validation-manager.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sabrio/ng2-validation-manager.git"
+  },
+  "keywords": [
+    "angular2",
+    "ng",
+    "ng2",
+    "validation",
+    "library",
+    "laravel",
+    "validate",
+    "form builder"
+  ],
+  "author": "Sabri Aziri <azirisabri@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sabrio/ng2-validation-manager/issues"
+  },
+  "homepage": "https://github.com/sabrio/ng2-validation-manager#readme",
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
