@@ -1,6 +1,6 @@
 {
   "name": "ng2-validation-manager",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Your library description.",
   "main": "ng2-validation-manager",
   "typings": "ng2-validation-manager.d.ts",
