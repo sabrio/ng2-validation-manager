@@ -40,15 +40,7 @@ test
 Thumbs.db
 .DS_Store
 *.yml
-*.ts
-!*.d.ts
-example/app/app.*
-example/public
-example/shims
-example/app.scss
-example/main.ts
-example/polyfills.ts
-example/vendor.ts
+example
 *.spec.*
 *.e2e.*
 CONTRIBUTING.md

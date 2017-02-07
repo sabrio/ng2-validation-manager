@@ -9,7 +9,7 @@
     "noEmitHelpers": true
   },
   "files": [
-    "ngx-your-library.ts"
+
   ],
   "exclude": [
     "node_modules",
