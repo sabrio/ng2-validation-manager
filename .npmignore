@@ -57,3 +57,8 @@ webpack.config.js
 .travis.yml
 .jshintrc
 .editorconfig
+PUBLISHING.md
+npm-debug.log.*
+LICENSE
+packagedev.json
+packagepublish.json

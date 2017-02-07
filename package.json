@@ -1,6 +1,6 @@
 {
   "name": "ng2-validation-manager",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "Your library description.",
   "main": "ng2-validation-manager",
   "typings": "ng2-validation-manager.d.ts",
@@ -24,7 +24,9 @@
     "url": "https://github.com/sabrio/ng2-validation-manager/issues"
   },
   "homepage": "https://github.com/sabrio/ng2-validation-manager#readme",
-  "scripts": {},
+  "scripts": {
+    "build": "tsc --p tsconfig-build.json"
+  },
   "dependencies": {},
   "devDependencies": {}
 }
