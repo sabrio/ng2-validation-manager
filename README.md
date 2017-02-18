@@ -32,36 +32,32 @@ Import ReactiveFormsModule inside your module
 #### Quick in ng2-validation-manager
 
 ```
-..
-import {ValidationManager} from "ng2-validation-manager";
 
-
-export class AppComponent implements OnInit{
-
-  form;
-
-  ngOnInit() {
-
-    this.form = new ValidationManager({
-      'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
-      'email'       : 'required|email',
-      'password'    : 'required|rangeLength:8,50',
-      'repassword'  : 'equalTo:password',
-			}, ['invalid', 'submitted']);
-		
-		this.form.setValue({
-      'name': 'Default',
-    });
-    //or
-    this.form.setValue('name', 'Default');
-	}
+	import {ValidationManager} from "ng2-validation-manager";
 	
-	save(){
-    if(this.form.isValid()){
-      alert('validation pass');
-    }
-  }
-}
+	
+	export class AppComponent implements OnInit{
+	
+	  form;
+	
+	  ngOnInit() {
+	
+	    this.form = new ValidationManager({
+	      'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
+	      'email'       : 'required|email',
+	      'password'    : 'required|rangeLength:8,50',
+	      'repassword'  : 'equalTo:password'
+				      }, ['invalid', 'submitted']);+
+			
+	    this.form.setValue('name', 'Default');
+		}
+		
+		save(){
+	    if(this.form.isValid()){
+	      alert('validation pass');
+	    }
+	  }
+	}
 	
 ```
 and the view would like like
