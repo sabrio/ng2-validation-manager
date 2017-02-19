@@ -1,0 +1,245 @@
+<div class="page-header">
+  <h1>ng2-validation-manager
+
+      <!-- Place this tag where you want the button to render. -->
+      <!-- Place this tag where you want the button to render. -->
+      <a class="github-button" href="https://github.com/sabrio/ng2-validation-manager" data-icon="octicon-star"
+         data-count-href="/sabrio/ng2-validation-manager/stargazers"
+         data-count-api="/repos/sabrio/ng2-validation-manager#stargazers_count"
+         data-count-aria-label="# stargazers on GitHub"
+         aria-label="Star sabrio/ng2-validation-manager on GitHub">Star</a>
+  </h1>
+</div>
+
+<!-- project-block -->
+<ins class="adsbygoogle pull-right" style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-7616772085785107" data-ad-slot="7971084020"></ins>
+
+
+<article class="home" id="about">
+
+  <h2>
+    Hello World!
+  </h2>
+
+  <div>
+
+    <p><strong>ng2-validation-manager</strong> is validation library for Angular 2 based on Laravel Validation method. </p>
+    <p><a routerLink="/demo">Demo</a></p>
+
+
+    <h3 id="dbyll-is-on-github">Main features</h3>
+    <ul class="feature-list">
+      <li>&#x2611; Easy setup</li>
+      <li>&#x2611; Dynamic messages</li>
+      <li>&#x2611; +20 validation rules</li>
+      <li>&#x2610; Custom errors messages</li>
+      <li>&#x2610; Multiple languages</li>
+      <li>&#x2610; Expendable</li>
+    </ul>
+  </div>
+</article>
+
+
+<article class="home">
+
+  <h2>
+    Install
+  </h2>
+
+  <div>
+    <pre>
+      <code>npm i ng2-validation-manager --save</code>
+    </pre>
+
+    <h3>Import</h3>
+    <pre>
+        @NgModule(&#123;
+          imports: [
+            ...
+            ReactiveFormsModule
+          ]
+        &#125;)
+    </pre>
+  </div>
+</article>
+
+
+<article class="home" id="usage">
+  <h2>
+    Usage
+  </h2>
+
+  <div>
+    <pre>
+import &#123;ValidationManager&#125; from "ng2-validation-manager";
+
+export class AppComponent implements OnInit&#123;
+
+  form;
+
+  ngOnInit() &#123;
+
+    this.form = new ValidationManager(&#123;
+      'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
+      'email'       : 'required|email',
+      'password'    : 'required|rangeLength:8,50',
+      'repassword'  : 'required|equalTo:password'
+    &#125;);
+
+    this.form.setValue('name', 'Default');
+  &#125;
+
+  save()&#123;
+    if(this.form.isValid())&#123;
+      alert('validation pass');
+      this.form.reset();
+    &#125;
+  &#125;
+&#125;
+    </pre>
+
+    and your view would like like:
+    <pre>
+      <code>
+&lt;form [formGroup]="form&#46;getForm()" (ngSubmit)="save()"&gt;
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Name&lt;/label&gt;
+    &lt;input type="text" class="form-control" formControlName="name"&gt;
+    &lt;div *ngIf="form&#46;hasError('name')" class="alert alert-danger"&gt;
+     <span>&#123;</span><span>&#123;</span>form.getError('name')<span>&#125;</span><span>&#125;</span>
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Email&lt;/label&gt;
+    &lt;input type="text" class="form-control" formControlName="email"&gt;
+    &lt;div *ngIf="form&#46;hasError('email')" class="alert alert-danger"&gt;
+     <span>&#123;</span><span>&#123;</span>form.getError('email')<span>&#125;</span><span>&#125;</span>
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Password&lt;/label&gt;
+    &lt;input type="password" class="form-control" formControlName="password"&gt;
+    &lt;div *ngIf="form&#46;hasError('password')" class="alert alert-danger"&gt;
+     <span>&#123;</span><span>&#123;</span>form.getError('password')<span>&#125;</span><span>&#125;</span>
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;RE-Password&lt;/label&gt;
+    &lt;input type="repassword" class="form-control" formControlName="repassword"&gt;
+    &lt;div *ngIf="form&#46;hasError('repassword')" class="alert alert-danger"&gt;
+      <span>&#123;</span><span>&#123;</span>form.getError('repassword')<span>&#125;</span><span>&#125;</span>
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Sign in&lt;/button&gt;
+&lt;/form&gt;
+        </code>
+    </pre>
+  </div>
+</article>
+<article class="home">
+  <h2 id="manager">
+    Validation manager api
+  </h2>
+  <div>
+    Methods
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Return</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>constructor(obj:&#123; field: rules &#125;, [])</td>
+        <td></td>
+        <td>This method returns the FormGroup </td>
+      </tr>
+      <tr>
+        <td>getForm()</td>
+        <td>FormGroup</td>
+        <td>This method returns the FormGroup </td>
+      </tr>
+      <tr>
+        <td>isValid()</td>
+        <td>boolean</td>
+        <td>This method checks if the form is valid or not</td>
+      </tr>
+      <tr>
+        <td>reset()</td>
+        <td>void</td>
+        <td>This method resets the form</td>
+      </tr>
+      <tr>
+        <td>hasError(field)</td>
+        <td>boolean</td>
+        <td>This method checks if the form is valid or not</td>
+      </tr>
+      <tr>
+        <td>getError(field)</td>
+        <td>string</td>
+        <td>This method returns the error of the field</td>
+      </tr>
+      <tr>
+        <td>getErrors()</td>
+        <td>[]:string</td>
+        <td>This method returns array of all errors</td>
+      </tr>
+      <tr>
+        <td>setValue(field, value)</td>
+        <td>void</td>
+        <td>This method sets value of field</td>
+      </tr>
+      <tr>
+        <td>getValue(field)</td>
+        <td>string</td>
+        <td>This method return the value of field</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</article>
+
+<article class="home">
+  <h2 id="validators">
+    Validators
+  </h2>
+  <p>The current validators/rules</p>
+  <div class="help-block"><b>Note:</b> Validation rules are <b>case-sensitive</b></div>
+  <div class="row rules">
+    <div class="col-md-4"><a href="#required">required</a></div>
+    <div class="col-md-4"><a href="#number">number</a></div>
+    <div class="col-md-4"><a href="#date">date</a></div>
+
+    <div class="col-md-4"><a href="#alpha">alpha</a></div>
+    <div class="col-md-4"><a href="#digits">digits</a></div>
+    <div class="col-md-4"><a href="#minDate">minDate</a></div>
+
+
+    <div class="col-md-4"><a href="#alphaNum">alphaNum</a></div>
+    <div class="col-md-4"><a href="#minLength">minLength</a></div>
+    <div class="col-md-4"><a href="#maxDate">maxDate</a></div>
+
+    <div class="col-md-4"><a href="#alphaSpace">alphaSpace</a></div>
+    <div class="col-md-4"><a href="#maxLength">maxLength</a></div>
+    <div class="col-md-4"><a href="#dateISO">dateISO</a></div>
+
+    <div class="col-md-4"><a href="#alphanNumSpace">alphaNumSpace</a></div>
+    <div class="col-md-4"><a href="#range">range</a></div>
+    <div class="col-md-4"><a href="#rangeLength">rangeLength</a></div>
+
+    <div class="col-md-4"><a href="#max">max</a></div>
+    <div class="col-md-4"><a href="#min">min</a></div>
+    <div class="col-md-4"><a href="#email">email</a></div>
+
+    <div class="col-md-4"><a href="#equal">equal</a></div>
+    <div class="col-md-4"><a href="#equalTo">equalTo</a></div>
+  </div>
+</article>
+
+<div class="clearfix"></div>

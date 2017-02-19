@@ -1,104 +1,27 @@
-[![Angular 2 Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://github.com/mgechev/angular2-style-guide)
-[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
-[![Dependency Status](https://david-dm.org/preboot/angular-library-seed/status.svg)](https://david-dm.org/preboot/angular-library-seed#info=dependencies) [![devDependency Status](https://david-dm.org/preboot/angular-library-seed/dev-status.svg)](https://david-dm.org/preboot/angular-library-seed#info=devDependencies)
+# T
 
-# ng2-validation-manager
-Validation manager library for Angular 2 (based on Laravel Validation method)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3.
 
-## Installation
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Code scaffolding
 
-```bash
-$ npm i ng2-validator-manager
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
-## Dependecies
-Import ReactiveFormsModule inside your module
-```
-	// ...
-  
-  @NgModule({
-    imports: [
-      // ...
-      ReactiveFormsModule,
-      // ...
-    ],
-    
-  })
-  // ...
-```
+## Build
 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-#### Quick in ng2-validation-manager
+## Running unit tests
 
-```
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-	import {ValidationManager} from "ng2-validation-manager";
-	
-	
-	export class AppComponent implements OnInit{
-	
-	  form;
-	
-	  ngOnInit() {
-	
-	    this.form = new ValidationManager({
-	      'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
-	      'email'       : 'required|email',
-	      'password'    : 'required|rangeLength:8,50',
-	      'repassword'  : 'equalTo:password'
-				      }, ['invalid', 'submitted']);+
-			
-	    this.form.setValue('name', 'Default');
-		}
-		
-		save(){
-	    if(this.form.isValid()){
-	      alert('validation pass');
-	    }
-	  }
-	}
-	
-```
-and the view would like like
-```
-<form [formGroup]="form.getForm()" (ngSubmit)="save()">
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" class="form-control" formControlName="name">
-    <div *ngIf="form.hasError('name')" class="alert alert-danger">
-      {{ form.getError('name') }}
-    </div>
-  </div>
+## Running end-to-end tests
 
-  <div class="form-group">
-    <label>Email</label>
-    <input type="text" class="form-control" formControlName="email">
-    <div *ngIf="form.hasError('email')" class="alert alert-danger">
-      {{ form.getError('email') }}
-    </div>
-  </div>
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
 
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" formControlName="password">
-    <div *ngIf="form.hasError('password')" class="alert alert-danger">
-      {{ form.getError('password') }}
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label>RE-Password</label>
-    <input type="repassword" class="form-control" formControlName="repassword">
-    <div *ngIf="form.hasError('repassword')" class="alert alert-danger">
-      {{ form.getError('repassword') }}
-    </div>
-  </div>
-  <button type="submit">Sign in</button>
-</form>
-```
+## Further help
 
-Dats it :) Hope you like it
-### License
-
-[MIT](/LICENSE)
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

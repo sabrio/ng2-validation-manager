@@ -13,7 +13,10 @@
   ],
   "exclude": [
     "node_modules",
-    "bundles"
+    "bundles",
+    "src",
+    "e2e",
+    "dist"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

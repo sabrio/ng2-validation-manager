@@ -32,9 +32,8 @@ node_modules
 .idea
 
 dist
-dev
+src
 docs
-lib
 test
 
 Thumbs.db

@@ -1,0 +1,208 @@
+<nav class="navbar navbar-default visible-xs" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a type="button" class="navbar-toggle nav-link" href="http://github.com/dbtek">
+      <i class="fa fa-github"></i>
+    </a>
+    <a type="button" class="navbar-toggle nav-link" href="http://twitter.com/dbtek">
+      <i class="fa fa-twitter"></i>
+    </a>
+    <a type="button" class="navbar-toggle nav-link" href="mailto:dbyll@ismaildemirbilek.com">
+      <i class="fa fa-envelope"></i>
+    </a>
+    <a class="navbar-brand" href="/dbyll/">
+      <img src="//www.gravatar.com/avatar/726351295ec82e145928582f595aa3aa?s=35" class="img-circle">
+      dbyll
+    </a>
+  </div>
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/dbyll/">Home</a></li>
+      <li><a href="/dbyll/categories.html">Categories</a></li>
+      <li><a href="/dbyll/tags.html">Tags</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 sidebar hidden-xs">
+      <!-- sidebar.html -->
+      <header class="sidebar-header" role="banner">
+        <a class="hide">
+          <img src="//www.gravatar.com/avatar/726351295ec82e145928582f595aa3aa?s=150" class="img-circle">
+        </a>
+        <h4 class="title">
+          <a href="https://github.com/sabrio/ng2-validation-manager">ng2-validation-manager</a>
+        </h4>
+      </header>
+
+      <div id="bio" class="text-center">
+        Light library for a flexible way.
+      </div>
+
+      <ul class="content">
+        <li>
+          <a routerLink="/" fragment="about" (click)="goTo('about')">About</a>
+        </li>
+        <li>
+          <a routerLink="/" fragment="install" (click)="goTo('install')">Install</a>
+        </li>
+        <li>
+          <a routerLink="/" fragment="usage" (click)="goTo('usage')">Usage</a>
+        </li>
+        <li>
+          <a routerLink="/" fragment="manager" (click)="goTo('manager')">Validation manager api</a>
+        </li>
+        <li>
+          <a routerLink="/" fragment="validators" (click)="goTo('validators')">Validators</a>
+        </li>
+        <li>
+          <a routerLink="demo">Demo</a>
+        </li>
+      </ul>
+
+      <div id="contact-list" class="text-center">
+        © 2017 Sabrio
+        <ul class="list-unstyled list-inline">
+
+          <li>
+            <a class="btn btn-default btn-sm" href="https://github.com/sabrio">
+              <i class="fa fa-github-alt fa-lg"></i>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-default btn-sm" href="mailto:azirisabri@gmail.com">
+              <i class="fa fa-envelope fa-lg"></i>
+            </a>
+          </li>
+
+        </ul>
+        Theme: <a href="https://github.com/dbtek/dbyll">dbyll.</a>
+      </div>
+      <!-- sidebar.html end -->
+      <div>
+
+      </div>
+    </div>
+    <div class="col-sm-9 col-sm-offset-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!--
+<header>
+  <h1 class="title">ng2-validation-manager!</h1>
+</header>
+<main class="container">
+  <div class="col-md-5">
+    <div>
+      <h3>Control state:</h3>
+      <label class="checkbox-inline">
+        <input type="checkbox" id="inlineCheckbox1" value="option1"> touched
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" id="inlineCheckbox2" value="option2"> dirty
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" id="inlineCheckbox3" value="option3"> valid
+      </label>
+      <h3>Form state</h3>
+      <label class="checkbox-inline">
+        <input type="checkbox" value="option1"> Submitted
+      </label>
+    </div>
+    <br/>
+    <form [formGroup]="form.getForm()" (ngSubmit)="proced()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+        <div *ngIf="form.hasError('name')" class="alert alert-danger">
+          {{ form.getError('name') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name_alpha">Name</label>
+        <input type="text" id="name_alpha" class="form-control" formControlName="name_alpha">
+        <div *ngIf="form.hasError('name_alpha')" class="alert alert-danger">
+          {{ form.getError('name_alpha') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" class="form-control" formControlName="username">
+        <div *ngIf="form.hasError('username')" class="alert alert-danger">
+          {{ form.getError('username') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age[required integer min and max]</label>
+        <input type="text" class="form-control" formControlName="age" id="age">
+        <div *ngIf="form.hasError('age')" class="alert alert-danger">
+          {{ form.getError('age') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email[required email]</label>
+        <input type="text" class="form-control" formControlName="email" id="email">
+        <div *ngIf="form.hasError('email')" class="alert alert-danger">
+          {{ form.getError('email') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="date1">Date1[required DateISO]</label>
+        <input type="text" class="form-control" formControlName="date1" id="date1">
+        <div *ngIf="form.hasError('date1')" class="alert alert-danger">
+          {{ form.getError('date1') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="date2">Date2[minDate and maxDate]</label>
+        <input type="text" class="form-control" formControlName="date2" id="date2">
+        <div *ngIf="form.hasError('date2')" class="alert alert-danger">
+          {{ form.getError('date2') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="integer">Integer[min and max]</label>
+        <input type="text" class="form-control" formControlName="integer" id="integer">
+        <div *ngIf="form.hasError('integer')" class="alert alert-danger">
+          {{ form.getError('integer') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" formControlName="password" id="password">
+        <div *ngIf="form.hasError('password')" class="alert alert-danger">
+          {{ form.getError('password') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="repassword">Reset Password</label>
+        <input type="text" class="form-control" formControlName="repassword" id="repassword">
+        <div *ngIf="form.hasError('repassword')" class="alert alert-danger">
+          {{ form.getError('repassword') }}
+        </div>
+      </div>
+      <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+  </div>
+</main>
+-->
