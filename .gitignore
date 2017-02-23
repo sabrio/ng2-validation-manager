@@ -7,6 +7,14 @@
 # dependencies
 /node_modules
 
+index.d.ts
+index.js
+index.js.map
+lib/*.d.ts
+lib/*.js
+lib/*.js.map
+
+
 # IDEs and editors
 /.idea
 .project
