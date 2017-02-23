@@ -31,9 +31,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "tsc --p tsconfig-build.json",
-    "prepublish": "node publish pre",
-    "postpublish": "node publish post"
+    "build": "tsc --p tsconfig-build.json"
   },
   "private": false,
   "dependencies": {},

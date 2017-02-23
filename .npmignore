@@ -36,6 +36,10 @@ src
 docs
 test
 
+.angular-cli.json
+packagetmp.json
+packagepublish.json
+
 Thumbs.db
 .DS_Store
 *.ts
