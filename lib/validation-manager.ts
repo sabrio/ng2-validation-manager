@@ -74,14 +74,14 @@ export class ValidationManager{
   }
 
   setValue(values:any, value = null){
-
-    if(typeof values == "string"){
-      this.formGroup.controls[values].setValue(value);
+    if(typeof values == "string" || this.formGroup.get(values)){
+      this.formGroup.get(values).setValue(value);
     }
 
     if(typeof values == "object"){
       for(let key in values){
-        this.formGroup.controls[key].setValue(values[key]);
+        if(this.formGroup.get(key))
+          this.formGroup.get(key).setValue(values[key]);
       }
     }
   }

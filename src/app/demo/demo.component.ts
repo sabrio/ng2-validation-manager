@@ -21,7 +21,10 @@ export class DemoComponent implements OnInit {
       'repassword'  : 'required|equalTo:password'
     });
 
-    this.form.setValue('name', 'Default');
+    this.form.setValue({
+      'name': 'Default',
+      'kot': 'test'
+    });
   }
 
   save(){
