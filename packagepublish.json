@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/sabrio/ng2-validation-manager#readme",
   "angular-cli": {},
-  "scripts": {},
+  "scripts": {
+    "prepublish": "tsc --p tsconfig-build.json"
+  },
   "private": false,
   "dependencies": {},
   "devDependencies": {}

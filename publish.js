@@ -4,8 +4,6 @@ if (process.argv[2] == "pre") {
   fs.createReadStream('package.json').pipe(fs.createWriteStream('packagedev.json')).on('close', function(){
     fs.createReadStream('packagepublish.json').pipe(fs.createWriteStream('package.json'));
   });
-
-  console.log('pre-install');
 }
 
 
