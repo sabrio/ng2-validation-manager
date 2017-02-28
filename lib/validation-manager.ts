@@ -81,7 +81,7 @@ export class ValidationManager{
     if(typeof values == "object"){
       for(let key in values){
         if(this.formGroup.get(key))
-          this.formGroup.get(key).setValue(values[key]);
+          this.formGroup.get(key).setValue(typeof values[key] === "boolean" ? values[key].toString() : values[key] );
       }
     }
   }

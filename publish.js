@@ -10,6 +10,6 @@ if (process.argv[2] == "pre") {
 
 
 if (process.argv[2] == "post"){
-  fs.createReadStream('packagetmp.json').pipe(fs.createWriteStream('package.json'));
+  fs.createReadStream('packagedev.json').pipe(fs.createWriteStream('package.json'));
 }
 
