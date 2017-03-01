@@ -74,8 +74,8 @@ export class ValidationManager{
   }
 
   setValue(values:any, value = null){
-    if(typeof values == "string" || this.formGroup.get(values)){
-      this.formGroup.get(values).setValue(value);
+    if(typeof values == "string" && this.formGroup.get(values)){
+      this.formGroup.get(values).setValue(value.toString());
     }
 
     if(typeof values == "object"){
