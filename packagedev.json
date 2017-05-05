@@ -1,6 +1,6 @@
 {
   "name": "ng2-validation-manager",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "ng2-validation-manager is validation library for Angular 2 based on Laravel Validation method.",
   "main": "ng2-validation-manager",
   "typings": "ng2-validation-manager.d.ts",
@@ -35,7 +35,15 @@
   },
   "private": false,
   "dependencies": {
-    "@types/node": "^6.0.64",
+    "@angular/common": "^2.4.10",
+    "@angular/forms": "^2.4.10",
+    "@angular/http": "^2.4.10",
+    "@angular/platform-browser": "^2.4.10",
+    "@angular/platform-browser-dynamic": "^2.4.10",
+    "@angular/router": "^3.4.10",
+    "@types/core-js": "^0.9.41",
+    "@types/node": "^6.0.72",
+    "ng2-bootstrap": "^1.6.3",
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
