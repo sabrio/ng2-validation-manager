@@ -42,6 +42,7 @@ packagepublish.json
 
 Thumbs.db
 .DS_Store
+!lib
 *.ts
 !*.d.ts
 *.yml
