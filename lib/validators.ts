@@ -36,16 +36,25 @@ export class Validators extends NativeValidators{
     return /^[A-Za-z0-9 ]+$/.test(v) ? null : {'alphaNumSpace': true};
   }
 
-  static requiredIfSet(field:any): ValidatorFn {
+  static requiredWith(field:any): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
       if (!control['_parent']) return null;
 
       var controlRequired = control['_parent'].controls[field];
 
-      return  controlRequired.value ? null : {'requiredIfSet': true};
+      return  controlRequired.value ? null : {'requiredWith': true};
     };
   }
 
+  static requiredWithout(field:any): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (!control['_parent']) return null;
+
+      var controlRequired = control['_parent'].controls[field];
+
+      return  controlRequired.value ? {'requiredWithout': true} : null;
+    };
+  }
 
   /**
    * Validator that requires controls to have a value of a range length.
@@ -56,6 +65,18 @@ export class Validators extends NativeValidators{
 
       let v: string = control.value;
       return v.length >= rangeLength[0] && v.length <= rangeLength[1] ? null : {'rangeLength': true};
+    };
+  }
+
+  /**
+   * Validator that requires controls to have a value of a range length.
+   */
+  static count(len): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+      if (isPresent(Validators.required(control))) return null;
+
+      let v: string = control.value;
+      return v.length == len ? null : {'count': true};
     };
   }
 
@@ -336,7 +357,6 @@ export class Validators extends NativeValidators{
   static equalTo(equalControlName): ValidatorFn {
 
     return (control: AbstractControl): {[key: string]: any} => {
-      console.log(control['_parent'])
       if (!control['_parent']) return null;
 
       if(!control['_parent'].controls[equalControlName])

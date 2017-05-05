@@ -76,12 +76,17 @@ export class ValidationManager{
   setValue(values:any, value = null){
     if(typeof values == "string" && this.formGroup.get(values)){
       this.formGroup.get(values).setValue(value.toString());
+      this.formGroup.get(values).markAsTouched();
+      this.formGroup.get(values).markAsDirty();
     }
 
     if(typeof values == "object"){
       for(let key in values){
-        if(this.formGroup.get(key))
+        if(this.formGroup.get(key)){
+          this.formGroup.get(key).markAsTouched();
+          this.formGroup.get(key).markAsDirty();
           this.formGroup.get(key).setValue(values[key].toString());
+        }
       }
     }
   }
@@ -90,13 +95,28 @@ export class ValidationManager{
     return this.formGroup.controls[controlKey].value;
   }
 
+  getData(){
+    var data = {};
+    for(let key in this.formControls)
+      data[key] = this.formControls[key].value
+    return data;
+  }
+
   buildControl(name, rules){
-    rules = rules.split('|');
+    if(typeof rules  == 'object')
+      rules['rules'] = rules['rules'].split('|');
+
+    if(typeof rules  == 'string'){
+      rules = {
+        'rules'  : rules.split('|'),
+        'value'       : ''
+      };
+    }
+
     var controlRules:ValidatorFn[] = [];
     var messages = {};
 
-
-    rules.forEach(rule => {
+    rules.rules.forEach(rule => {
       if(rule){
         var rule_spilted    = rule.split(':');
         var rule_name       = rule_spilted[0];
@@ -119,8 +139,15 @@ export class ValidationManager{
       }
 
     });
+    var formControl = new FormControl(rules.value, controlRules);
 
-    return { control : new FormControl('', controlRules), messages: messages};
+    if(rules.value){
+      formControl.markAsTouched();
+      formControl.markAsDirty();
+    }
+
+
+    return { control : formControl, messages: messages};
   }
 
   private getErrorMessage(field, rule){
@@ -128,6 +155,11 @@ export class ValidationManager{
     if(!this.controls[field].messages[rule.toLowerCase()])
       throw Error('Message not found inside the control:' + field + ' message:' + rule.toLowerCase());
     return this.controls[field].messages[rule.toLowerCase()];
+  }
+
+  setErrorMessage(field, rule, message){
+    if(this.controls[field].messages[rule.toLowerCase()])
+      this.controls[field].messages[rule.toLowerCase()] = message;
   }
 
   private buildMessage(name, rule, arg = []){
@@ -146,7 +178,7 @@ export class ValidationManager{
     return message;
   }
 
-  getMessage(rule){
+  private getMessage(rule){
     return VALIDATION_MESSAGES[rule.toLowerCase()];
   }
 
@@ -177,7 +209,9 @@ export const VALIDATION_MESSAGES = {
   'dateiso'           : '%n is not valid ISO date[yyyy-mm-dd].',
   'equal'             : '%n should be equal to %0',
   'equalto'           : '%n must be equal to %0',
-  'json'              : '%n is not valid json.'
+  'json'              : '%n is not valid json.',
+  'pattern'           : '%n is not matching the pattern.',
+  'count'             : '%n must count %0'
 };
 
 function ucFirst(str) {

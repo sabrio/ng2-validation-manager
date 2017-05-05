@@ -37,13 +37,28 @@
         </div>
 
         <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" formControlName="username">
+          <div *ngIf="form.hasError('username')" class="alert alert-danger">
+            {{form.getError('username')}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" class="form-control" formControlName="description">
+          <div *ngIf="form.hasError('description')" class="alert alert-danger">
+            {{form.getError('description')}}
+          </div>
+        </div>
+
+        <div class="form-group">
           <label>Password</label>
           <input type="password" class="form-control" formControlName="password">
           <div *ngIf="form.hasError('password')" class="alert alert-danger">
             {{form.getError('password')}}
           </div>
         </div>
-
         <div class="form-group">
           <label>RE-Password</label>
           <input type="repassword" class="form-control" formControlName="repassword">
@@ -61,39 +76,54 @@
       <tab heading="Template">
           <pre>
             <code>
-&lt;form [formGroup]="form&#46;getForm()" (ngSubmit)="save()"&gt;
+&lt;form [formGroup]="form.getForm()" (ngSubmit)="save()"&gt;
   &lt;div class="form-group"&gt;
     &lt;label&gt;Name&lt;/label&gt;
     &lt;input type="text" class="form-control" formControlName="name"&gt;
-    &lt;div *ngIf="form&#46;hasError('name')" class="alert alert-danger"&gt;
-     <span>&#123;</span><span>&#123;</span>form.getError('name')<span>&#125;</span><span>&#125;</span>
+    &lt;div *ngIf="form.hasError('name')" class="alert alert-danger"&gt;
+        <span>&#123;</span><span>&#123;</span>form.getError('name')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
   &lt;/div&gt;
 
   &lt;div class="form-group"&gt;
     &lt;label&gt;Email&lt;/label&gt;
     &lt;input type="text" class="form-control" formControlName="email"&gt;
-    &lt;div *ngIf="form&#46;hasError('email')" class="alert alert-danger"&gt;
-     <span>&#123;</span><span>&#123;</span>form.getError('email')<span>&#125;</span><span>&#125;</span>
+    &lt;div *ngIf="form.hasError('email')" class="alert alert-danger"&gt;
+      <span>&#123;</span><span>&#123;</span>form.getError('email')<span>&#125;</span><span>&#125;</span>
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Username&lt;/label&gt;
+    &lt;input type="text" class="form-control" formControlName="username"&gt;
+    &lt;div *ngIf="form.hasError('username')" class="alert alert-danger"&gt;
+      <span>&#123;</span><span>&#123;</span>form.getError('username')<span>&#125;</span><span>&#125;</span>
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="form-group"&gt;
+    &lt;label&gt;Description&lt;/label&gt;
+    &lt;input type="text" class="form-control" formControlName="description"&gt;
+    &lt;div *ngIf="form.hasError('description')" class="alert alert-danger"&gt;
+      <span>&#123;</span><span>&#123;</span>form.getError('description')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
   &lt;/div&gt;
 
   &lt;div class="form-group"&gt;
     &lt;label&gt;Password&lt;/label&gt;
     &lt;input type="password" class="form-control" formControlName="password"&gt;
-    &lt;div *ngIf="form&#46;hasError('password')" class="alert alert-danger"&gt;
-     <span>&#123;</span><span>&#123;</span>form.getError('password')<span>&#125;</span><span>&#125;</span>
+    &lt;div *ngIf="form.hasError('password')" class="alert alert-danger"&gt;
+      <span>&#123;</span><span>&#123;</span>form.getError('password')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
   &lt;/div&gt;
-
   &lt;div class="form-group"&gt;
     &lt;label&gt;RE-Password&lt;/label&gt;
     &lt;input type="repassword" class="form-control" formControlName="repassword"&gt;
-    &lt;div *ngIf="form&#46;hasError('repassword')" class="alert alert-danger"&gt;
+    &lt;div *ngIf="form.hasError('repassword')" class="alert alert-danger"&gt;
       <span>&#123;</span><span>&#123;</span>form.getError('repassword')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;button type="submit"&gt;Sign in&lt;/button&gt;
+  &lt;button type="submit" class="btn btn-success"&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
               </code>
           </pre>
@@ -111,16 +141,23 @@ export class AppComponent implements OnInit&#123;
     this.form = new ValidationManager(&#123;
       'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
       'email'       : 'required|email',
+      'username'    : 'required|pattern:[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*',
+      'description' : &#123;'rules': 'required|count:15', 'value': 'testing'&#125;,
       'password'    : 'required|rangeLength:8,50',
       'repassword'  : 'required|equalTo:password'
     &#125;);
 
-    this.form.setValue('name', 'Default');
+    this.form.setValue(&#123;
+      'name': 'Default'
+    &#125;);
+
+    this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
   &#125;
 
   save()&#123;
     if(this.form.isValid())&#123;
       alert('validation pass');
+      console.log(this.form.getData());
       this.form.reset();
     &#125;
   &#125;
