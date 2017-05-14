@@ -1,11 +1,7 @@
 
-#ng2-validation-manager
+<h1>ng2-validation-manager</h1>
 
-      
-
-<h2>
-  Hello World!
-</h2>
+     
 
 
 
@@ -18,7 +14,7 @@
 <li>&#x2611; Easy setup</li>
   <li>&#x2611; Dynamic messages</li>
   <li>&#x2611; +20 validation rules</li>
-  <li>&#x2610; Custom errors messages</li>
+  <li>&#x2611; Custom errors messages</li>
   <li>&#x2610; Multiple languages</li>
   <li>&#x2610; Expendable</li>
 </ul>
@@ -26,14 +22,14 @@
 
 
 
-##Install
+<h2>Install</h2>
 
  
 <pre>
   <code>npm i ng2-validation-manager --save</code>
 </pre>
 
-###Import
+<h3>Import</h3>
     
 	  @NgModule({
 	    imports: [
@@ -42,35 +38,42 @@
 	    ]
 	  })
   
-##Usage
+<h3>Usage</h3>
   
 
   
-	import {ValidationManager} from "ng2-validation-manager";
-	
-	export class AppComponent implements OnInit{
-	
-	  form;
-	
-	  ngOnInit() {
-	
-	    this.form = new ValidationManager({
-	      'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
-	      'email'       : 'required|email',
-	      'password'    : 'required|rangeLength:8,50',
-	      'repassword'  : 'required|equalTo:password'
-	    });
-	
-	    this.form.setValue('name', 'Default');
-	  }
-	
-	  save(){
-	    if(this.form.isValid()){
-	      alert('validation pass');
-	      this.form.reset();
-	    }
-	  }
-	}
+    import {ValidationManager} from "ng2-validation-manager";
+
+    export class AppComponent implements OnInit{
+
+      form;
+
+      ngOnInit() {
+
+        this.form = new ValidationManager({
+          'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
+          'email'       : 'required|email',
+          'username'    : 'required|pattern:[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*',
+          'description' : {'rules': 'required|count:15', 'value': 'testing'},
+          'password'    : 'required|rangeLength:8,50',
+          'repassword'  : 'required|equalTo:password'
+        });
+
+        this.form.setValue({
+          'name': 'Default'
+        });
+
+        this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
+      }
+
+      save(){
+        if(this.form.isValid()){
+          alert('validation pass');
+          console.log(this.form.getData());
+          this.form.reset();
+        }
+      }
+    }
  
 
 and your view would like like:
@@ -80,38 +83,53 @@ and your view would like like:
         <label>Name</label>
         <input type="text" class="form-control" formControlName="name">
         <div *ngIf="form.hasError('name')" class="alert alert-danger">
-          {{form.getError('name')}}
+            {{form.getError('name')}}
         </div>
       </div>
 
-	    <div class="form-group">
-	      <label>Email</label>
-	      <input type="text" class="form-control" formControlName="email">
-	      <div *ngIf="form.hasError('email')" class="alert alert-danger">
-	        {{form.getError('email')}}
-	      </div>
-	    </div>
-	
-	    <div class="form-group">
-	      <label>Password</label>
-	      <input type="password" class="form-control" formControlName="password">
-	      <div *ngIf="form.hasError('password')" class="alert alert-danger">
-	        {{form.getError('password')}}
-	      </div>
-	    </div>
-	
-	    <div class="form-group">
-	      <label>RE-Password</label>
-	      <input type="repassword" class="form-control" formControlName="repassword">
-	      <div *ngIf="form.hasError('repassword')" class="alert alert-danger">
-	        {{form.getError('repassword')}}
-	      </div>
-	    </div>
-	    <button type="submit" class="btn btn-success">Submit</button>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" class="form-control" formControlName="email">
+        <div *ngIf="form.hasError('email')" class="alert alert-danger">
+          {{form.getError('email')}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" formControlName="username">
+        <div *ngIf="form.hasError('username')" class="alert alert-danger">
+          {{form.getError('username')}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" class="form-control" formControlName="description">
+        <div *ngIf="form.hasError('description')" class="alert alert-danger">
+          {{form.getError('description')}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password">
+        <div *ngIf="form.hasError('password')" class="alert alert-danger">
+          {{form.getError('password')}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>RE-Password</label>
+        <input type="repassword" class="form-control" formControlName="repassword">
+        <div *ngIf="form.hasError('repassword')" class="alert alert-danger">
+          {{form.getError('repassword')}}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
     </form>
 	
  
-##Validation manager api
+<h2>Validation manager api</h2>
   
 | Method| Return | Description |
 |-------|--------|-------------|
@@ -119,14 +137,16 @@ and your view would like like:
 | getForm() | FormGroup | This method returns the FormGroup |
 | isValid() | boolean | This method checks if the form is valid or not |
 | reset() | void | This method resets the form  | 
-| hasError(field) | boolean | This method checks if the form is valid or not | 
+| hasError(field) | boolean | This method checks if the form field is valid or not | 
 | getError(field) | string | This method returns the error of the field | 
-| getErrors() | []:string | This method returns array of all errors | 
+| getErrors() | []:string | This method returns array of errors | 
+| setErrorMessage(field, rule, message) | void | This method can change the defualt message of a particular rule  | 
 | setValue(field, value) | void | This method sets value of field | 
-| getValue(field) | string | This method return the value of field | 
+| getValue(field) | string | This method returns the value of field |
+| getDate() | [] => {field:value} | This method returns array of pair key and value of your form  | 
 
 
-##Validators
+<h2>Validators</h2>
   
 The current validators/rules
 
@@ -159,4 +179,9 @@ The current validators/rules
 
 <div class="col-md-4"><a href="#equal">equal</a></div>
 <div class="col-md-4"><a href="#equalTo">equalTo</a></div>
+
+
+<div class="col-md-4"><a href="#equalTo">pattern</a></div>
+<div class="col-md-4"><a href="#equalTo">count</a></div>
+
   
