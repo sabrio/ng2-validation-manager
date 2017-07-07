@@ -69,6 +69,19 @@
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
     </div>
+    <div class="col-md-6">
+      <code>
+        <pre>
+<b>form.getData()</b> => {{form.getData()|json}}
+
+<b>form.getValue('description')</b> => {{form.getValue('description')}}
+
+<b>form.getErrors()</b> => {{form.getErrors()|json}}
+
+        </pre>
+      </code>
+      <button class="btn btn-default" (click)="form.reset()">form.reset()</button>
+    </div>
   </div>
   <br/>
   <div class="row">
