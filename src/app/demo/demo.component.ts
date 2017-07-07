@@ -25,8 +25,9 @@ export class DemoComponent implements OnInit {
     });
 
     this.form.setValue({
-      'name': 'Default'
+      'name': 'Default',
     });
+
 
     this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
   }

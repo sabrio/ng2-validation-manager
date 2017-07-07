@@ -74,32 +74,30 @@ export class ValidationManager{
   }
 
   setValue(values:any, value = null){
+
     if(typeof values == "string" && this.formGroup.get(values)){
-      this.formGroup.get(values).setValue(value.toString());
-      this.formGroup.get(values).markAsTouched();
-      this.formGroup.get(values).markAsDirty();
+      if(value !== null){
+        this.formGroup.get(values).setValue(value.toString());
+        this.formGroup.get(values).markAsTouched();
+        this.formGroup.get(values).markAsDirty();
+      }
     }
 
     if(typeof values == "object"){
       for(let key in values){
         if(this.formGroup.get(key)){
-          this.formGroup.get(key).markAsTouched();
-          this.formGroup.get(key).markAsDirty();
-          this.formGroup.get(key).setValue(values[key].toString());
+          this.setValue(key, values[key]);
         }
       }
     }
   }
 
   getValue(controlKey:string){
-    return this.formGroup.controls[controlKey].value;
+    return this.formGroup.value[controlKey];
   }
 
   getData(){
-    var data = {};
-    for(let key in this.formControls)
-      data[key] = this.formControls[key].value
-    return data;
+    return this.formGroup.value;
   }
 
   buildControl(name, rules){
