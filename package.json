@@ -32,7 +32,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "tsc --p tsconfig-build.json",
-    "prepublish": "tsc --p tsconfig-build.json"
+    "prepublish": "npm run build",
+    "postpublish": "ng build --prod --base-href 'https://sabrio.github.io/ng2-validation-manager/' && ngh"
   },
   "private": false,
   "dependencies": {},
