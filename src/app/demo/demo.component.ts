@@ -26,6 +26,7 @@ export class DemoComponent implements OnInit {
 
     this.form.setValue({
       'name': 'Default',
+      'username':0
     });
 
 

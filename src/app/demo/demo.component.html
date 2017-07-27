@@ -38,7 +38,7 @@
 
         <div class="form-group">
           <label>Username</label>
-          <input type="text" class="form-control" formControlName="username">
+          <input type="number" class="form-control" formControlName="username">
           <div *ngIf="form.hasError('username')" class="alert alert-danger">
             {{form.getError('username')}}
           </div>
@@ -80,7 +80,7 @@
 
         </pre>
       </code>
-      <button class="btn btn-default" (click)="form.reset()">form.reset()</button>
+      <button class="btn btn-danger" (click)="form.reset()">form.reset()</button>
     </div>
   </div>
   <br/>

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "es5",
+    "module": "CommonJS",
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -9,7 +9,9 @@
     "noEmitHelpers": false
   },
   "files": [
-    "index.ts"
+    "index.ts",
+    "lib/validation-manager.ts",
+    "lib/validators.ts"
   ],
   "exclude": [
     "node_modules",
