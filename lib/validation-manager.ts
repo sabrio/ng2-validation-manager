@@ -1,4 +1,4 @@
-import {FormGroup, FormControl, ValidatorFn} from "@angular/forms";
+import {FormGroup, FormControl, FormArray, FormBuilder, ValidatorFn} from "@angular/forms";
 import {Validators} from "./validators";
 
 
@@ -11,11 +11,13 @@ export class ValidationManager{
   errors = {};
   submitted = false;
 
+  private _fb: FormBuilder;
+
   constructor(
     private inputsRaw,
-    private displayError = ['invalid', 'dirty', 'submitted']
+    private displayError = ['invalid', 'dirty', 'submitted'],
   ){
-
+    this._fb = new FormBuilder();
     for(var key in this.inputsRaw){
       this.controls[key] = this.buildControl(key, this.inputsRaw[key]);
       this.formControls[key] = this.controls[key].control;
@@ -29,6 +31,21 @@ export class ValidationManager{
 
   getForm(){
     return this.formGroup;
+  }
+
+  addChild(field, mgr: ValidationManager){
+     if( !this.formGroup.controls[field] ) {
+      this.formGroup.controls[field] = this._fb.array([mgr.getForm()]);
+     } else {
+      const control =<FormArray>this.formGroup.controls[field];
+      control.push(mgr.getForm());
+     }
+  }
+
+  removeChild( field, index: number) {
+    if( !this.formGroup.controls[field] ) { return; }
+    const control =<FormArray>this.formGroup.controls[field];
+    control.removeAt(index);
   }
 
   isValid(){
