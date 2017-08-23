@@ -41,7 +41,7 @@ export class DemoComponent implements OnInit {
   }
 
   removeAddress(i: number) {
-    this.form.removeChild(i);
+    this.form.removeChild('addresses', i);
   }
 
   save(){
