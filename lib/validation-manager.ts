@@ -19,7 +19,7 @@ export class ValidationManager{
   ){
     this._fb = new FormBuilder();
     for(var key in this.inputsRaw){
-      this.controls[key] = this.buildControl(key, this.inputsRaw[key]);
+      this.controls[key] = this._buildControl(key, this.inputsRaw[key]);
       this.formControls[key] = this.controls[key].control;
       this.errors[key] = '';
     }
@@ -115,6 +115,14 @@ export class ValidationManager{
 
   getData(){
     return this.formGroup.value;
+  }
+
+  _buildControl(name, rules): any{
+    if( rules === 'formgroup' ) {
+      return { control: this._fb.array([]), messages: {} };
+    } else {
+      return this.buildControl(name, rules);
+    }
   }
 
   buildControl(name, rules){

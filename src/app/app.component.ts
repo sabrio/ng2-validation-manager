@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ValidationManager} from "../../lib/validation-manager";
+import { ValidationManager } from '../../lib/validation-manager';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +26,8 @@ export class AppComponent implements OnInit{
       'date2': 'required|minDate:2016-05-05',
       'integer': 'required|min:5',
       'password': 'required',
-      'repassword': 'required|equalTo:password'
+      'repassword': 'required|equalTo:password',
+      'addresses': 'formgroup'
     });
 
     this.form.setValue(
@@ -51,4 +52,9 @@ export class AppComponent implements OnInit{
   }
 
   url: string = 'https://github.com/sabrio/ng2-validation-manager';
+}
+
+export interface Address {
+  street: string;
+  postcode: string;
 }
