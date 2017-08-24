@@ -116,7 +116,10 @@ export class ValidationManager{
 
   setValue(values:any, value = null){
 
-    if(typeof values == "string" && this.formGroup.get(values)){
+    if(typeof values == "string"){
+      const control = this.formGroup.get(values);
+      if (!control || control instanceof FormArray) { return; }
+
       if(value !== null){
         this.formGroup.get(values).setValue(value.toString());
         this.formGroup.get(values).markAsTouched();
