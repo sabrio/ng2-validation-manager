@@ -43,13 +43,10 @@ export class ValidationManager{
   }
 
   addChild(field, mgr: ValidationManager){
-     if( !this.formGroup.controls[field] ) {
-      this.formGroup.controls[field] = this._fb.array([mgr.getForm()]);
-     } else {
       const control =<FormArray>this.formGroup.controls[field];
       control.push(mgr.getForm());
       this.children[field].push(mgr);
-     }
+      return control.length - 1;
   }
 
   removeChild( field, index: number) {
