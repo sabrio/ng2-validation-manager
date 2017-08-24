@@ -10,6 +10,7 @@ export class ValidationManager{
   formControls = {};
   errors = {};
   submitted = false;
+  children = {};
 
   private _fb: FormBuilder;
 
@@ -33,12 +34,21 @@ export class ValidationManager{
     return this.formGroup;
   }
 
+  getChild(field, index: number){
+    return this.children[field][index];
+  }
+
+  getChildren(field){
+      return this.children[field];
+  }
+
   addChild(field, mgr: ValidationManager){
      if( !this.formGroup.controls[field] ) {
       this.formGroup.controls[field] = this._fb.array([mgr.getForm()]);
      } else {
       const control =<FormArray>this.formGroup.controls[field];
       control.push(mgr.getForm());
+      this.children[field].push(mgr);
      }
   }
 
@@ -46,10 +56,12 @@ export class ValidationManager{
     if( !this.formGroup.controls[field] ) { return; }
     const control =<FormArray>this.formGroup.controls[field];
     control.removeAt(index);
+    this.children[field].splice(index, 1);
   }
 
   isValid(){
     this.submitted = true;
+    this.__setOnChild('submitted', true);
     this.onValueChanged();
     return !this.formGroup.invalid;
   }
@@ -69,6 +81,12 @@ export class ValidationManager{
   reset(){
     this.submitted = false;
     this.formGroup.reset();
+    this.__setOnChild('submitted', false);
+    for( const fld in this.children ) {
+      for ( const child of this.children[fld] ) {
+        child.formGroup.reset();
+      }
+    }
   }
 
   onValueChanged(displayError = null) {
@@ -88,6 +106,15 @@ export class ValidationManager{
         }
       }
     }
+
+    this.__callOnChild('onValueChanged');
+    /*for( const fld in this.children ) {
+      for ( const child of this.children[fld] ) {
+        console.log('on value changed', child);
+        child.onValueChanged();
+      }
+    }*/
+
   }
 
   setValue(values:any, value = null){
@@ -119,6 +146,7 @@ export class ValidationManager{
 
   _buildControl(name, rules): any{
     if( rules === 'formgroup' ) {
+      this.children[name] = [];
       return { control: this._fb.array([]), messages: {} };
     } else {
       return this.buildControl(name, rules);
@@ -203,6 +231,22 @@ export class ValidationManager{
 
   private getMessage(rule){
     return VALIDATION_MESSAGES[rule.toLowerCase()];
+  }
+
+  private __callOnChild(funct) {
+    for( const fld in this.children ) {
+      for ( const child of this.children[fld] ) {
+        child[funct].apply(child, Array.prototype.slice.call(arguments, 1));
+      }
+    }
+  }
+
+  private __setOnChild(field, value){
+    for( const fld in this.children ) {
+      for ( const child of this.children[fld] ) {
+        child[field] = value;
+      }
+    }
   }
 
 }

@@ -81,6 +81,9 @@
                 <small [hidden]="form.getForm().controls.addresses.controls[i].controls.street.valid" class="text-danger">
                     Street is required
                 </small>
+                <div *ngIf="form.getChild('addresses', i).hasError('street')" class="alert alert-danger">
+                  {{form.getChild('addresses', i).getError('street')}}
+                </div>
               </div>
               <div class="form-group col-xs-6">
                 <label>postcode</label>
