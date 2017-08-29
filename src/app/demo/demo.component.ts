@@ -11,7 +11,6 @@ export class DemoComponent implements OnInit {
   constructor() { }
 
   form;
-  slider = null;
 
   ngOnInit() {
 
@@ -22,22 +21,28 @@ export class DemoComponent implements OnInit {
       'description' : {'rules': 'required|count:15', 'value': 'testing'},
       'password'    : 'required|rangeLength:8,50',
       'repassword'  : 'required|equalTo:password',
-      'addresses'   : 'formgroup'
+      'formGroup'       :  new ValidationManager({
+        'id': {value: 1, rules: ''},
+        'name': 'required'
+      }),
+      'addresses'   : [
+        new ValidationManager({
+          'street': 'required',
+          'postcode': ''
+        })
+      ],
     });
 
     this.form.setValue({
       'name': 'Default',
-      'username':0
+      'username': 0
     });
 
-
     this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
-    this.form.addChild('addresses', new ValidationManager({'street': 'required', 'postcode': ''}) );
-
   }
 
   addAddress() {
-    this.form.addChild('addresses', new ValidationManager({'street': 'required', 'postcode': ''}) );
+    this.form.addChildGroup('addresses', new ValidationManager({'street': {value:'testing', rules: 'required'}, 'postcode': ''}) );
   }
 
   removeAddress(i: number) {

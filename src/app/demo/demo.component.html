@@ -67,22 +67,45 @@
           </div>
         </div>
 
-        <!--addresses-->
-        <div formArrayName="addresses">
-          <div *ngFor="let address of form.getForm().controls.addresses.controls; let i=index" class="panel panel-default">
+        <!--child-->
+        <div formGroupName="formGroup" class="panel panel-default">
+          <div class="panel-heading">
+            <span>Form Group</span>
+          </div>
+          <div class="panel-body">
+            <div class="form-group col-xs-6">
+              <label>ID</label>
+              <input type="text" class="form-control" formControlName="id" disabled>
+            </div>
+            <div class="form-group col-xs-6">
+              <label>Name</label>
+              <input type="text" class="form-control" formControlName="name">
+              <div *ngIf="form.getChildGroup('formGroup').hasError('name')" class="alert alert-danger">
+                {{form.getChildGroup('formGroup').getError('name')}}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--addresses -->
+        <fieldset formArrayName="addresses">
+          <legend>Addresses
+            <a (click)="addAddress()" class="btn btn-default btn-xs pull-right">
+              Add address
+            </a>
+          </legend>
+          <div *ngFor="let address of form.getControl('addresses').controls; let i=index" class="panel panel-default">
             <div class="panel-heading">
               <span>Address {{i + 1}}</span>
-              <span class="glyphicon glyphicon-remove pull-right" *ngIf="form.getForm().controls.addresses.controls.length > 1" (click)="removeAddress(i)"></span>
+              <span class="glyphicon glyphicon-remove pull-right"
+                    *ngIf="form.getControl('addresses').controls.length > 1" (click)="removeAddress(i)"></span>
             </div>
             <div class="panel-body" [formGroupName]="i">
               <div class="form-group col-xs-6">
                 <label>street</label>
                 <input type="text" class="form-control" formControlName="street">
-                <small [hidden]="form.getForm().controls.addresses.controls[i].controls.street.valid" class="text-danger">
-                    Street is required
-                </small>
-                <div *ngIf="form.getChild('addresses', i).hasError('street')" class="alert alert-danger">
-                  {{form.getChild('addresses', i).getError('street')}}
+                <div *ngIf="form.getChildGroup('addresses', i).hasError('street')" class="alert alert-danger">
+                  {{form.getChildGroup('addresses', i).getError('street')}}
                 </div>
               </div>
               <div class="form-group col-xs-6">
@@ -91,11 +114,7 @@
               </div>
             </div>
           </div>
-        </div>
-        <a (click)="addAddress()" style="cursor: default">
-          Add another address +
-        </a>
-
+        </fieldset>
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
     </div>

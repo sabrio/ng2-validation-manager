@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
       'integer': 'required|min:5',
       'password': 'required',
       'repassword': 'required|equalTo:password',
-      'addresses': 'formgroup'
+      'addresses': ''
     });
 
     this.form.setValue(
