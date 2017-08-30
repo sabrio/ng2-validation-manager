@@ -68,9 +68,10 @@
         </div>
 
         <!--child-->
-        <div formGroupName="formGroup" class="panel panel-default">
+        <div *ngIf="form.getControl('formGroup')" formGroupName="formGroup" class="panel panel-default">
           <div class="panel-heading">
             <span>Form Group</span>
+            <span class="glyphicon glyphicon-remove pull-right" (click)="removeFormGroup()"></span>
           </div>
           <div class="panel-body">
             <div class="form-group col-xs-6">

@@ -43,19 +43,31 @@ export class ValidationManager {
   }
 
   addChildGroup(field, mgr: ValidationManager) {
-    const control = <FormArray>this.formGroup.controls[field];
-    control.push(mgr.getForm());
-    this.children[field].push(mgr);
-    return control.length - 1;
+    if(this.formGroup.controls[field] && this.formGroup.controls[field] instanceof FormArray){
+      const control = <FormArray>this.formGroup.controls[field];
+      control.push(mgr.getForm());
+      this.children[field].push(mgr);
+      return control.length - 1;
+    }else{
+      this.children[field] = mgr;
+      this.formGroup.addControl(field, mgr.getForm());
+      return -1;
+    }
   }
 
-  removeChild(field, index: number) {
+  removeChildGroup(field, index: number = null) {
     if (!this.formGroup.controls[field]) {
       return;
     }
-    const control = <FormArray>this.formGroup.controls[field];
-    control.removeAt(index);
-    this.children[field].splice(index, 1);
+
+    if(index !== null){
+      const control = <FormArray>this.formGroup.controls[field];
+      control.removeAt(index);
+      this.children[field].splice(index, 1);
+    }else{
+      this.formGroup.removeControl(field);
+      delete this.children[field];
+    }
   }
 
   isValid() {

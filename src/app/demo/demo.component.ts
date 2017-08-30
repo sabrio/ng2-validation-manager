@@ -20,11 +20,11 @@ export class DemoComponent implements OnInit {
       'username'    : 'required|pattern:[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*',
       'description' : {'rules': 'required|count:15', 'value': 'testing'},
       'password'    : 'required|rangeLength:8,50',
-      'repassword'  : 'required|equalTo:password',
+      'repassword'  : 'required|equalTo:password',/*
       'formGroup'       :  new ValidationManager({
         'id': {value: 1, rules: ''},
         'name': 'required'
-      }),
+      }),*/
       'addresses'   : [
         new ValidationManager({
           'street': 'required',
@@ -39,6 +39,11 @@ export class DemoComponent implements OnInit {
     });
 
     this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
+
+    this.form.addChildGroup('formGroup', new ValidationManager({
+      'id': {value: 1, rules: ''},
+      'name': 'required'
+    }));
   }
 
   addAddress() {
@@ -46,7 +51,11 @@ export class DemoComponent implements OnInit {
   }
 
   removeAddress(i: number) {
-    this.form.removeChild('addresses', i);
+    this.form.removeChildGroup('addresses', i);
+  }
+
+  removeFormGroup(){
+    this.form.removeChildGroup('formGroup');
   }
 
   save(){
