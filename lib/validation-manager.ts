@@ -1,4 +1,4 @@
-import {FormGroup, FormControl, FormArray, FormBuilder, ValidatorFn} from "@angular/forms";
+import {FormGroup, FormControl, FormArray, FormBuilder, ValidatorFn, AbstractControl} from "@angular/forms";
 import {Validators} from "./validators";
 
 
@@ -184,7 +184,7 @@ export class ValidationManager {
     return this.formGroup.value;
   }
 
-  getControl(controlName:string){
+  getControl(controlName:string):AbstractControl{
     if(!this.formGroup.controls[controlName])
       return;
     return this.formGroup.controls[controlName];
