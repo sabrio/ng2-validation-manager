@@ -139,12 +139,13 @@
       <tab heading="Template">
           <pre>
             <code>
+
 &lt;form [formGroup]="form.getForm()" (ngSubmit)="save()"&gt;
   &lt;div class="form-group"&gt;
     &lt;label&gt;Name&lt;/label&gt;
     &lt;input type="text" class="form-control" formControlName="name"&gt;
     &lt;div *ngIf="form.hasError('name')" class="alert alert-danger"&gt;
-        <span>&#123;</span><span>&#123;</span>form.getError('name')<span>&#125;</span><span>&#125;</span>
+      <span>&#123;</span><span>&#123;</span>form.getError('name')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
   &lt;/div&gt;
 
@@ -158,7 +159,7 @@
 
   &lt;div class="form-group"&gt;
     &lt;label&gt;Username&lt;/label&gt;
-    &lt;input type="text" class="form-control" formControlName="username"&gt;
+    &lt;input type="number" class="form-control" formControlName="username"&gt;
     &lt;div *ngIf="form.hasError('username')" class="alert alert-danger"&gt;
       <span>&#123;</span><span>&#123;</span>form.getError('username')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
@@ -186,6 +187,56 @@
       <span>&#123;</span><span>&#123;</span>form.getError('repassword')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
   &lt;/div&gt;
+
+          &lt;!--child--&gt;
+  &lt;div *ngIf="form.getControl('formGroup')" formGroupName="formGroup" class="panel panel-default"&gt;
+    &lt;div class="panel-heading"&gt;
+      &lt;span&gt;Form Group&lt;/span&gt;
+      &lt;span class="glyphicon glyphicon-remove pull-right" (click)="removeFormGroup()"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="panel-body"&gt;
+      &lt;div class="form-group col-xs-6"&gt;
+        &lt;label&gt;ID&lt;/label&gt;
+        &lt;input type="text" class="form-control" formControlName="id"&gt;
+      &lt;/div&gt;
+      &lt;div class="form-group col-xs-6"&gt;
+        &lt;label&gt;Name&lt;/label&gt;
+        &lt;input type="text" class="form-control" formControlName="name"&gt;
+        &lt;div *ngIf="form.getChildGroup('formGroup').hasError('name')" class="alert alert-danger"&gt;
+          <span>&#123;</span><span>&#123;</span>form.getChildGroup('formGroup').getError('name')<span>&#125;</span><span>&#125;</span>
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+          &lt;!--addresses --&gt;
+  &lt;fieldset formArrayName="addresses"&gt;
+    &lt;legend&gt;Addresses
+      &lt;a (click)="addAddress()" class="btn btn-default btn-xs pull-right"&gt;
+        Add address
+      &lt;/a&gt;
+    &lt;/legend&gt;
+    &lt;div *ngFor="let address of form.getControl('addresses').controls; let i=index" class="panel panel-default"&gt;
+      &lt;div class="panel-heading"&gt;
+        &lt;span&gt;Address <span>&#123;</span><span>&#123;</span>i + 1<span>&#125;</span><span>&#125;</span>&lt;/span&gt;
+        &lt;span class="glyphicon glyphicon-remove pull-right"
+              *ngIf="form.getControl('addresses').controls.length &gt; 1" (click)="removeAddress(i)"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="panel-body" [formGroupName]="i"&gt;
+        &lt;div class="form-group col-xs-6"&gt;
+          &lt;label&gt;street&lt;/label&gt;
+          &lt;input type="text" class="form-control" formControlName="street"&gt;
+          &lt;div *ngIf="form.getChildGroup('addresses', i).hasError('street')" class="alert alert-danger"&gt;
+            <span>&#123;</span><span>&#123;</span>form.getChildGroup('addresses', i).getError('street')<span>&#125;</span><span>&#125;</span>
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="form-group col-xs-6"&gt;
+          &lt;label&gt;postcode&lt;/label&gt;
+          &lt;input type="text" class="form-control" formControlName="postcode"&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
   &lt;button type="submit" class="btn btn-success"&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
               </code>
@@ -207,14 +258,39 @@ export class AppComponent implements OnInit&#123;
       'username'    : 'required|pattern:[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*',
       'description' : &#123;'rules': 'required|count:15', 'value': 'testing'&#125;,
       'password'    : 'required|rangeLength:8,50',
-      'repassword'  : 'required|equalTo:password'
+      'repassword'  : 'required|equalTo:password',
+      'formGroup'       :  new ValidationManager(&#123;
+        'id': &#123;value: &#123;value: 1, disabled: true&#125;, rules: 'required'&#125;,
+        'name': &#123;value: 'Form group', rules: 'required|pattern:[A-Za-z0-9]+'&#125;
+      &#125;),
+      'addresses'   : [
+        new ValidationManager(&#123;
+          'street': 'required',
+          'postcode': ''
+        &#125;)
+      ],
     &#125;);
 
     this.form.setValue(&#123;
-      'name': 'Default'
+      'name': 'Default',
+      'username': 0,
+      'description': 'description'
     &#125;);
 
     this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
+
+  &#125;
+
+  addAddress() &#123;
+    this.form.addChildGroup('addresses', new ValidationManager(&#123;'street': &#123;value:'testing', rules: 'required'&#125;, 'postcode': ''&#125;) );
+  &#125;
+
+  removeAddress(i: number) &#123;
+    this.form.removeChildGroup('addresses', i);
+  &#125;
+
+  removeFormGroup()&#123;
+    this.form.removeChildGroup('formGroup');
   &#125;
 
   save()&#123;

@@ -5,7 +5,7 @@
 
 
 
-<p><strong>ng2-validation-manager</strong> is validation library for Angular 2 based on Laravel Validation method. </p>
+<p><strong>ng2-validation-manager</strong> is simple and flexible library for reactive form validation in angular 2+</p>
 <p><a href="https://sabrio.github.io/ng2-validation-manager">Demo</a></p>
 
 
@@ -15,8 +15,9 @@
   <li>&#x2611; Dynamic messages</li>
   <li>&#x2611; +20 validation rules</li>
   <li>&#x2611; Custom errors messages</li>
+  <li>&#x2611; Child FormGroup and FormArray</li>
   <li>&#x2610; Multiple languages</li>
-  <li>&#x2610; Expendable</li>
+  <li>&#x2610; Validator Expendable </li>
 </ul>
   
 
@@ -131,8 +132,9 @@ and your view would like like:
  
 <h2>Validation manager api</h2>
   
-| Method| Return | Description |
-|-------|--------|-------------|
+
+| Method| Return           | Description |
+|-------|------------------|-----------------------------------------------------|
 | constructor(obj:{ field: rules }, ['invalid', 'dirty', 'submitted']) | | |
 | getForm() | FormGroup | This method returns the FormGroup |
 | isValid() | boolean | This method checks if the form is valid or not |
@@ -144,7 +146,9 @@ and your view would like like:
 | setValue(field, value) | void | This method sets value of field | 
 | getValue(field) | string | This method returns the value of field |
 | getDate() | [] => {field:value} | This method returns array of pair key and value of your form  | 
-
+| getChildGroup(groupName:string, [index:number = null]) | [] => {field:value} | This method returns child FormGroup or FormArray | 
+| addChildGroup(field, mgr: ValidationManager) | [] => {field:value} |   | 
+| removeChildGroup(groupName:string, [index:number = null]) | [] => {field:value} | This method returns array of pair key and value of your form  | 
 
 <h2>Validators</h2>
   
