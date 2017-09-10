@@ -5,8 +5,7 @@
     "lib": [
       "ES5",
       "ES2015",
-      "DOM",
-      "ScriptHost"
+      "DOM"
     ],
     "declaration": true,
     "emitDecoratorMetadata": true,
