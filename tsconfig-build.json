@@ -3,9 +3,10 @@
     "module": "commonjs",
     "target": "es5",
     "lib": [
+      "dom",
       "ES5",
       "ES2015",
-      "DOM"
+      "ScriptHost"
     ],
     "declaration": true,
     "emitDecoratorMetadata": true,
