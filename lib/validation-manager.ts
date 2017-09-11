@@ -190,19 +190,22 @@ export class ValidationManager {
     return this.formGroup.controls[controlName];
   }
 
-  buildControl(name:string, rules:string, value:string|Object = null) {
+  buildControl(name:string, rules:[], value:string|Object = null) {
 
     var controlRules: ValidatorFn[] = [];
     var messages = {};
 
-    rules.split('|').forEach(rule => {
+    rules.forEach(rule => {
       if (rule) {
-        var rule_spilted = rule.split(':');
-        var rule_name = rule_spilted[0];
-
-        var rule_vars = [];
-        if (rule_spilted[1])
-          rule_vars = rule_spilted[1].split(',');
+        var rule_vars = []; 
+        
+        if(rule instanceof Array) {
+          var rule_name = rule[0];       
+          if (rule[1])
+            rule_vars = rule[1];
+        } else {
+          var rule_name = rule;
+        }
 
         if (!Validators[rule_name])
           throw new TypeError('Validation rule [' + rule_name + '] does not exists.');
