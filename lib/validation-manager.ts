@@ -192,7 +192,7 @@ export class ValidationManager {
     return this.formGroup.value;
   }
 
-  getControl(controlName:string):AbstractControl{
+  getControl(controlName:string){
     if(!this.formGroup.controls[controlName])
       return;
     return this.formGroup.controls[controlName];
