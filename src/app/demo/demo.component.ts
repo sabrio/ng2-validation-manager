@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ValidationManager} from "../../../lib/validation-manager";
+import {FormArray, FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-demo',
@@ -13,11 +14,11 @@ export class DemoComponent implements OnInit {
   form;
 
   checkboxs = [
-    {'name': 'check1', 'checked': true},
-    {'name': 'check2', 'checked': true},
-    {'name': 'check3', 'checked': false},
-    {'name': 'check4', 'checked': false},
-    {'name': 'check5', 'checked': false}
+    {'name': 'check1'},
+    {'name': 'check2'},
+    {'name': 'check3'},
+    {'name': 'check4'},
+    {'name': 'check5'}
   ];
   ngOnInit() {
 
@@ -49,9 +50,6 @@ export class DemoComponent implements OnInit {
 
     this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
 
-    this.checkboxs.forEach((check, i) => {
-      this.form.addChildGroup('checkboxs', check.checked);
-    });
   }
 
   addAddress() {
@@ -74,4 +72,14 @@ export class DemoComponent implements OnInit {
     }
   }
 
+  onCheck(value, isChecked){
+    const checkboxArray = <FormArray>this.form.getControl('checkboxs');
+
+    if(isChecked) {
+      checkboxArray.push(new FormControl(value));
+    } else {
+      let index = checkboxArray.controls.findIndex(x => x.value == value)
+      checkboxArray.removeAt(index);
+    }
+  }
 }

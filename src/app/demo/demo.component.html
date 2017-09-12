@@ -117,17 +117,16 @@
           </div>
         </fieldset>
 
-        <fieldset formArrayName="checkboxs">
+        <fieldset>
           <legend>Checkboxs</legend>
-          <div *ngFor="let checkbox of form.getControl('checkboxs').controls; let i=index">
+          <div *ngFor="let checkbox of checkboxs; let i=index">
               <label>
-                <input type="checkbox" [formControl]="checkbox" [(ngModel)]="checkboxs[i].checked">
+                <input type="checkbox" (change)="onCheck(checkbox.name, $event.target.checked)">
                 {{checkboxs[i].name}}
               </label>
           </div>
         </fieldset>
         <button type="submit" class="btn btn-success">Submit</button>
-        {{checkboxs|json}}
       </form>
     </div>
     <div class="col-md-6">
