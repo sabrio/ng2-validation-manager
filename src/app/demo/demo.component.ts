@@ -12,6 +12,13 @@ export class DemoComponent implements OnInit {
 
   form;
 
+  checkboxs = [
+    {'name': 'check1', 'checked': true},
+    {'name': 'check2', 'checked': true},
+    {'name': 'check3', 'checked': false},
+    {'name': 'check4', 'checked': false},
+    {'name': 'check5', 'checked': false}
+  ];
   ngOnInit() {
 
     this.form = new ValidationManager({
@@ -31,6 +38,7 @@ export class DemoComponent implements OnInit {
           'postcode': ''
         })
       ],
+      'checkboxs': []
     });
 
     this.form.setValue({
@@ -41,6 +49,9 @@ export class DemoComponent implements OnInit {
 
     this.form.setErrorMessage('username', 'pattern', 'Pattern must be part of this family: [A-Za-z0-9.-_]');
 
+    this.checkboxs.forEach((check, i) => {
+      this.form.addChildGroup('checkboxs', check.checked);
+    });
   }
 
   addAddress() {

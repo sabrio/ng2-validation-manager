@@ -29,8 +29,12 @@ export class ValidationManager {
         let formArray = <FormArray>this._fb.array([]);
 
         for(let group of formValidations[key]){
-          formArray.push(group.getForm());
-          this.children[key].push(group);
+          if(group instanceof ValidationManager){
+            formArray.push(group.getForm());
+            this.children[key].push(group);
+          }else
+            formArray.push(new FormControl(group));
+
         }
         this.controls[key] = {control: formArray, messages: {}};
       }else if (typeof formValidations[key] == 'object'){
@@ -61,11 +65,15 @@ export class ValidationManager {
     return this.children[field];
   }
 
-  addChildGroup(field, mgr: ValidationManager) {
+  addChildGroup(field, mgr: ValidationManager|any) {
     if(this.formGroup.controls[field] && this.formGroup.controls[field] instanceof FormArray){
       const control = <FormArray>this.formGroup.controls[field];
-      control.push(mgr.getForm());
-      this.children[field].push(mgr);
+      if(mgr instanceof ValidationManager){
+        control.push(mgr.getForm());
+        this.children[field].push(mgr);
+      }else
+        control.push(new FormControl(mgr));
+
       return control.length - 1;
     }else{
       this.children[field] = mgr;

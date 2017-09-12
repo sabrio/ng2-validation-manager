@@ -38,7 +38,7 @@
 
         <div class="form-group">
           <label>Username</label>
-          <input type="number" class="form-control" formControlName="username">
+          <input type="text" class="form-control" formControlName="username">
           <div *ngIf="form.hasError('username')" class="alert alert-danger">
             {{form.getError('username')}}
           </div>
@@ -116,7 +116,18 @@
             </div>
           </div>
         </fieldset>
+
+        <fieldset formArrayName="checkboxs">
+          <legend>Checkboxs</legend>
+          <div *ngFor="let checkbox of form.getControl('checkboxs').controls; let i=index">
+              <label>
+                <input type="checkbox" [formControl]="checkbox" [(ngModel)]="checkboxs[i].checked">
+                {{checkboxs[i].name}}
+              </label>
+          </div>
+        </fieldset>
         <button type="submit" class="btn btn-success">Submit</button>
+        {{checkboxs|json}}
       </form>
     </div>
     <div class="col-md-6">
@@ -159,7 +170,7 @@
 
   &lt;div class="form-group"&gt;
     &lt;label&gt;Username&lt;/label&gt;
-    &lt;input type="number" class="form-control" formControlName="username"&gt;
+    &lt;input type="text" class="form-control" formControlName="username"&gt;
     &lt;div *ngIf="form.hasError('username')" class="alert alert-danger"&gt;
       <span>&#123;</span><span>&#123;</span>form.getError('username')<span>&#125;</span><span>&#125;</span>
     &lt;/div&gt;
