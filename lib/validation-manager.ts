@@ -203,6 +203,10 @@ export class ValidationManager {
     var controlRules: ValidatorFn[] = [];
     var messages = {};
 
+    rules = rules.replace(/pattern:(\/.+\/)(\|?)/, function(a, b, c){
+      return 'pattern:' + btoa(b) + c;
+    });
+
     rules.split('|').forEach(rule => {
       if (rule) {
         var rule_spilted = rule.split(':');
@@ -217,9 +221,13 @@ export class ValidationManager {
 
         if (rule_vars.length > 1)
           controlRules.push(Validators[rule_name](rule_vars));
-        else if (rule_vars.length == 1)
+        else if (rule_vars.length == 1){
+
+          if(rule_name == 'pattern' && isBase64(rule_vars[0]))
+            rule_vars[0] = atob(rule_vars[0]).slice(1, -1);
+
           controlRules.push(Validators[rule_name](rule_vars[0]));
-        else
+        }else
           controlRules.push(Validators[rule_name]);
 
         messages[rule_name.toLowerCase()] = this.buildMessage(name, rule_name, rule_vars);
@@ -326,4 +334,12 @@ export const VALIDATION_MESSAGES = {
 function ucFirst(str) {
   var firstLetter = str.substr(0, 1);
   return firstLetter.toUpperCase() + str.substr(1);
+}
+
+function isBase64(str) {
+  try {
+    return btoa(atob(str)) == str;
+  } catch (err) {
+    return false;
+  }
 }

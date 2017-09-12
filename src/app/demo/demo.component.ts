@@ -24,7 +24,7 @@ export class DemoComponent implements OnInit {
     this.form = new ValidationManager({
       'name'        : 'required|minLength:4|maxLength:12|alphaSpace',
       'email'       : 'required|email',
-      'username'    : 'required|pattern:[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*',
+      'username'    : 'required|pattern:/[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*/',
       'description' : {'rules': 'required|count:15', 'value': 'testing'},
       'password'    : 'required|rangeLength:8,50',
       'repassword'  : 'required|equalTo:password',
