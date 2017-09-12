@@ -117,13 +117,22 @@
           </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="col-sm-6">
           <legend>Checkboxs</legend>
-          <div *ngFor="let checkbox of checkboxs; let i=index">
-              <label>
-                <input type="checkbox" (change)="onCheck(checkbox.name, $event.target.checked)">
-                {{checkboxs[i].name}}
-              </label>
+          <div *ngFor="let checkbox of checkboxs">
+            <label>
+              <input type="checkbox" (change)="onCheck(checkbox.name, $event.target.checked)">
+              {{checkbox.name}}
+            </label>
+          </div>
+        </fieldset>
+        <fieldset class="col-sm-6">
+          <legend>Radio</legend>
+          <div *ngFor="let radio of radios;">
+            <label>
+              <input type="radio" formControlName="radios" [value]="radio">
+              {{radio.name}}
+            </label>
           </div>
         </fieldset>
         <button type="submit" class="btn btn-success">Submit</button>

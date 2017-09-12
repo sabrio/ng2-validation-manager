@@ -18,8 +18,14 @@ export class DemoComponent implements OnInit {
     {'name': 'check2'},
     {'name': 'check3'},
     {'name': 'check4'},
-    {'name': 'check5'}
   ];
+  radios = [
+    {'name': 'radio1'},
+    {'name': 'radio2'},
+    {'name': 'radio3'},
+    {'name': 'radio4'},
+  ];
+
   ngOnInit() {
 
     this.form = new ValidationManager({
@@ -39,12 +45,13 @@ export class DemoComponent implements OnInit {
           'postcode': ''
         })
       ],
-      'checkboxs': []
+      'checkboxs': [],
+      'radios': ''
     });
 
     this.form.setValue({
       'name': 'Default',
-      'username': 0,
+      'username': 'myUserName',
       'description': 'description'
     });
 
