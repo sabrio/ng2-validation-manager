@@ -161,8 +161,8 @@ export class ValidationManager {
   }
 
   setValue(values: Object|String, value = null) {
-
-    if (typeof values == "string") {
+    console.log(typeof values, values);
+    if (typeof values === "string") {
       const control = this.formGroup.get(values);
       if (!control || control instanceof FormArray) {
         return;
@@ -175,7 +175,7 @@ export class ValidationManager {
       }
     }
 
-    if (typeof values == "object") {
+    if (typeof values === "object") {
       for (let key in values) {
         if (this.formGroup.get(key)) {
           this.setValue(key, values[key]);
@@ -241,7 +241,6 @@ export class ValidationManager {
   }
 
   private getErrorMessage(field, rule) {
-    //console.log('Message: '+this.controls[field].messages[rule.toLowerCase()] + ' Field:' + field + ' rule:'+ rule);
     if (!this.controls[field].messages[rule.toLowerCase()])
       throw Error('Message not found inside the control:' + field + ' message:' + rule.toLowerCase());
     return this.controls[field].messages[rule.toLowerCase()];
@@ -257,7 +256,7 @@ export class ValidationManager {
       throw Error('Validation message is missing for: ' + rule);
 
     var message = this.getMessage(rule);
-    message = message.replace(/%n/g, ucFirst(name)).replace('_', ' ');
+    message = message.replace(/%n/g, ucFirst(name)).replace(/_/g, ' ');
 
     if (arg.length) {
       arg.forEach((arg, key) => {
