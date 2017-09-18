@@ -161,7 +161,6 @@ export class ValidationManager {
   }
 
   setValue(values: Object|String, value = null) {
-    console.log(typeof values, values);
     if (typeof values === "string") {
       const control = this.formGroup.get(values);
       if (!control || control instanceof FormArray) {
