@@ -168,7 +168,7 @@ export class ValidationManager {
       }
 
       if (value !== null) {
-        this.formGroup.get(values).setValue(value.toString());
+        this.formGroup.get(values).setValue(value);
         this.formGroup.get(values).markAsTouched();
         this.formGroup.get(values).markAsDirty();
       }
