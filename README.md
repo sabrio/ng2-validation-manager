@@ -145,7 +145,7 @@ and your view would like like:
 | setErrorMessage(field, rule, message) | void | This method can change the defualt message of a particular rule  | 
 | setValue(field, value) | void | This method sets value of field | 
 | getValue(field) | string | This method returns the value of field |
-| getDate() | [] => {field:value} | This method returns array of pair key and value of your form  | 
+| getData() | [] => {field:value} | This method returns array of pair key and value of your form  | 
 | getChildGroup(groupName:string, [index:number = null]) | [] => {field:value} | This method returns child FormGroup or FormArray | 
 | addChildGroup(field, mgr: ValidationManager) | [] => {field:value} |   | 
 | removeChildGroup(groupName:string, [index:number = null]) | [] => {field:value} | This method returns array of pair key and value of your form  | 
